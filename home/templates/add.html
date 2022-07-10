@@ -1,0 +1,56 @@
+{% extends 'base/main.html' %}
+{% block title %}
+Add Page
+{% endblock title %}
+{% block content %}
+<div class="text-center">
+    <h1>Add Page</h1>
+</div>
+
+<div class="bg-white p-5">
+    <h2 class="font-weight-bold">Add a team member</h2>
+    <h4>Set email, location, role</h4>
+
+    <hr class="mt-5 mb-5" />
+    <p class="font-weight-bold">Info</p>
+
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="first_name" value="" placeholder="First Name"><br><br>
+            <input type="text" name="last_name" value="" placeholder="Last Name"><br><br>
+            <input type="text" name="email" value="" placeholder="Email"><br><br>
+            <input type="text" name="phone_number" value="" placeholder="Phone Number"><br><br>
+
+            <input class="button" type="submit" value="Submit">
+        </form>
+        {% if error %}
+        <p style="color:red;">Your input format is wrong</p>
+        {% endif %}
+    </div>
+
+    <p class="font-weight-bold mt-5">Role</p>
+
+
+    <div class="d-flex justify-content-between">
+        {% if request.user.is_staff %}
+        <p lass="text-muted">Regular - Can't delete member</p>
+        <input class="form-check-input pos-in" type="radio" disabled>
+        {% else %}
+        <p>Regular - Can't delete member</p>
+        <input class="form-check-input pos-in" type="radio" checked>
+        {% endif %}
+    </div>
+
+    <div class="d-flex justify-content-between">
+        {% if not request.user.is_staff %}
+        <p class="text-muted">Admin - Can delete member</p>
+        <input class="form-check-input pos-in" type="radio" disabled>
+        {% else %}
+        <p>Admin - Can delete member</p>
+        <input class="form-check-input pos-in" type="radio" checked>
+        {% endif %}
+    </div>
+
+    {% endblock content %}
+</div>

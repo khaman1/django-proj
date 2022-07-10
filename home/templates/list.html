@@ -1,0 +1,36 @@
+{% extends 'base/main.html' %}
+{% block title %}
+List Page
+{% endblock title %}
+{% block content %}
+
+
+<div class="text-center">
+    <h1>List Page</h1>
+</div>
+
+<div class="bg-white p-5">
+    <div class="text-right">
+        <a href="{% url 'member-add' %}" style="text-decoration: none;"><button>+</button></a>
+    </div>
+    <h2 class="font-weight-bold">Team members</h2>
+    <h4>You have {{members|length}} team members.</h4>
+
+    {% for member in members %}
+    <hr class="mt-3 mb-3" />
+    {{member.user.first_name | title }} {{member.user.last_name | title }}
+    {% if member.user.is_staff %}
+    (admin)
+    {% endif %}
+    </br>
+    {{member.phone_number}}
+    </br>
+    {{member.user.email}}
+    </br>
+
+    <a href="/edit/{{member.id}}">Edit</a>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}
